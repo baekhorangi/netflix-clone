@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { getProducts, Product } from "@stripe/firestore-stripe-payments";
 import { GetStaticProps } from "next";
 import Head from "next/head";
@@ -7,6 +7,7 @@ import Membership from "../components/Membership";
 import useAuth from "../hooks/useAuth";
 import useSubscription from "../hooks/useSubscription";
 import payments, { goToBillingPortal } from "../lib/stripe";
+import Loader from "../components/Loader";
 
 interface Props {
   products: Product[];
@@ -15,6 +16,14 @@ interface Props {
 function Account({ products }: Props) {
   const { user, logout, loading } = useAuth();
   const subscription = useSubscription(user);
+  const [isBillingLoading, setBillingLoading] = useState(false);
+
+  const manageSubscription = () => {
+    if (subscription) {
+      setBillingLoading(true);
+      goToBillingPortal();
+    }
+  };
 
   if (loading) return null;
   return (
@@ -64,8 +73,12 @@ function Account({ products }: Props) {
           </div>
           <p
             className="cursor-pointer text-blue-500 hover:underline md:text-right"
-            onClick={goToBillingPortal}>
-            Change plan
+            onClick={manageSubscription}>
+            {isBillingLoading ? (
+              <Loader color="dark:fill-[#e50914]" />
+            ) : (
+              "Change plan"
+            )}
           </p>
         </div>
 
