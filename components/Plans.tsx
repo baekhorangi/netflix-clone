@@ -49,7 +49,7 @@ function Plans({ products }: Props) {
         </button>
       </header>
 
-      <main className="pt-28 mx-auto max-w-5xl px-5 pb-12 transition-all md:px-10">
+      <main className="mx-auto max-w-5xl px-5 pt-28 pb-12 transition-all md:px-10">
         <h1 className="mb-3 text-3xl font-medium">
           Choose the plan that's right for you
         </h1>

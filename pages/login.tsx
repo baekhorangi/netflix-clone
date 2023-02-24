@@ -36,7 +36,7 @@ function Login() {
       <Image
         src="https://rb.gy/p2hphi"
         fill
-        className="-z-10 !hidden opacity-60 sm:!inline object-cover"
+        className="-z-10 !hidden object-cover opacity-60 sm:!inline"
         alt="Login Background Image"
       />
       <img
