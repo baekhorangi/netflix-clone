@@ -1,6 +1,4 @@
-import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { modalState } from "../atoms/modalAtom";
 import Banner from "../components/Banner";
 import Header from "../components/Header";
@@ -10,6 +8,10 @@ import { Movie } from "../typings";
 import requests from "../utils/requests";
 import { useRecoilValue } from "recoil";
 import Modal from "../components/Modal";
+import Plans from "../components/Plans";
+import { getProducts, Product } from "@stripe/firestore-stripe-payments";
+import payments from "../lib/stripe";
+import useSubscription from "../hooks/useSubscription";
 
 interface Props {
   netflixOriginals: Movie[];
@@ -20,6 +22,7 @@ interface Props {
   horrorMovies: Movie[];
   romanceMovies: Movie[];
   documentaries: Movie[];
+  products: Product[];
 }
 
 const Home = ({
@@ -31,11 +34,14 @@ const Home = ({
   romanceMovies,
   topRated,
   trendingNow,
+  products,
 }: Props) => {
-  const { logout, loading } = useAuth();
+  const { logout, loading, user } = useAuth();
   const showModal = useRecoilValue(modalState);
+  const subscription = useSubscription(user);
 
-  if (loading) return null;
+  if (loading || subscription === null) return null;
+  if (!subscription) return <Plans products={products} />;
 
   return (
     <div className="relative h-screen bg-gradient-to-b  lg:h-[140vh]">
@@ -88,6 +94,13 @@ export const getServerSideProps = async () => {
     fetch(requests.fetchDocumentaries).then((res) => res.json()),
   ]);
 
+  const products = await getProducts(payments, {
+    includePrices: true,
+    activeOnly: true,
+  })
+    .then((res) => res)
+    .catch((error) => console.log(error.message));
+
   return {
     props: {
       netflixOriginals: netflixOriginals.results,
@@ -98,6 +111,7 @@ export const getServerSideProps = async () => {
       horrorMovies: horrorMovies.results,
       romanceMovies: romanceMovies.results,
       documentaries: documentaries.results,
+      products,
     },
   };
 };

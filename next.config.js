@@ -7,4 +7,5 @@ module.exports = {
       { protocol: "https", hostname: "rb.gy", pathname: "/**" },
     ],
   },
+  transpilePackages: ["@stripe/firestore-stripe-payments"],
 };
