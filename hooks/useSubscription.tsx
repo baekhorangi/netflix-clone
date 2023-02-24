@@ -3,7 +3,7 @@ import {
   Subscription,
 } from "@stripe/firestore-stripe-payments";
 import { User } from "firebase/auth";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import payments from "../lib/stripe";
 
 function useSubscription(user: User | null) {

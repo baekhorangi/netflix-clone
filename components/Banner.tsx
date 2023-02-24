@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../constants/movie";
 import { Movie } from "../typings";
 import { FaPlay } from "react-icons/fa";
-// import { modalState, movieState } from "../atoms/modalAtom.";
-// import { useRecoilState } from "recoil";
 import Image from "next/image";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useRecoilState } from "recoil";
@@ -43,7 +41,7 @@ function Banner({ netflixOriginals }: Props) {
         {movie?.overview}
       </p>
       <div className="flex space-x-3">
-        <button className="bannerButton bg-white text-black">
+        <button className="bannerButton cursor-not-allowed bg-white text-black">
           <FaPlay className="h-4 w-4 text-black md:h-6 md:w-6" />
           Play
         </button>

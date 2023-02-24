@@ -14,7 +14,7 @@
 
 @layer components {
   .headerLink {
-    @apply cursor-pointer text-sm font-light text-[#e5e5e5] transition duration-[0.4s] hover:text-[#b3b3b3];
+    @apply cursor-not-allowed text-sm font-light text-[#e5e5e5] transition duration-[0.4s] hover:text-[#b3b3b3];
   }
 
   .bannerButton {
@@ -38,7 +38,7 @@
   }
 
   .membershipLink {
-    @apply cursor-pointer text-blue-500 hover:underline;
+    @apply cursor-not-allowed text-blue-500 hover:underline;
   }
 
   .tableRow {
@@ -51,5 +51,21 @@
 
   .tableDataFeature {
     @apply w-1/3 p-2.5 text-center md:w-1/5 md:p-3.5;
+  }
+
+  .menu {
+    @apply md:hidden;
+  }
+
+  .menu .MuiPaper-root {
+    @apply !absolute !left-0 !rounded-none !border !border-[gray] !bg-black !text-white;
+  }
+
+  .menu .MuiList-root {
+    @apply !p-0;
+  }
+
+  .menu .MuiMenuItem-root {
+    @apply !block !w-72 cursor-not-allowed !py-3.5 !text-center !text-sm !font-light !text-[#b3b3b3] !transition !duration-200 first:cursor-default first:!font-normal first:!text-white hover:!bg-[#11100F];
   }
 }
